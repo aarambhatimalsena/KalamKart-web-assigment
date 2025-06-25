@@ -25,7 +25,7 @@ import {
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
-/* ------------------------- 🔓 PUBLIC ROUTES -------------------------- */
+
 
 // Register & Login
 router.post('/register', validateRegister, registerUser);
@@ -36,7 +36,6 @@ router.post('/google-auth', googleAuthController);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);
 
-/* ------------------------- 🔐 PROTECTED ROUTES -------------------------- */
 
 // Get or update user profile
 router

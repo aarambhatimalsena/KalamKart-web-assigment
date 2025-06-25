@@ -52,7 +52,7 @@ export const getProductReviews = async (req, res) => {
   }
 };
 
-// ✅ Delete a Review (user or admin)
+// Delete a Review (user or admin)
 export const deleteReview = async (req, res) => {
   const { productId, reviewId } = req.params;
   const userId = req.user._id;
@@ -64,7 +64,7 @@ export const deleteReview = async (req, res) => {
     const review = product.reviews.find(r => r._id.toString() === reviewId);
     if (!review) return res.status(404).json({ message: 'Review not found' });
 
-    // ✅ Updated permission check for admin or owner
+    // Updated permission check for admin or owner
     if (
       review.user.toString() !== userId.toString() &&
       !(req.user.role === "admin" || req.user.isAdmin)
@@ -86,7 +86,7 @@ export const deleteReview = async (req, res) => {
   }
 };
 
-// ✅ Admin: Get All Reviews Across All Products
+// Admin: Get All Reviews Across All Products
 export const getAllReviews = async (req, res) => {
   try {
     const products = await Product.find({}, "name reviews");

@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const API_BASE = 'http://localhost:5000'; // Make sure server is running
+const API_BASE = 'http://localhost:5000'; 
 
-// 🔐 Step 1: Log in the user and get JWT token
+//  Log in the user and get JWT token
 const userLogin = async () => {
   try {
     const response = await axios.post(`${API_BASE}/api/users/login`, {
@@ -20,7 +20,7 @@ const userLogin = async () => {
   }
 };
 
-// 📦 Step 2: Fetch all products from /api/products
+// Fetch all products from /api/products
 const fetchAllProducts = async () => {
   try {
     const response = await axios.get(`${API_BASE}/api/products`);
@@ -32,7 +32,7 @@ const fetchAllProducts = async () => {
   }
 };
 
-// 🛒 Step 3: Add one product to cart
+// Add one product to cart
 const addToCart = async (token, productId) => {
   try {
     await axios.post(
@@ -46,7 +46,7 @@ const addToCart = async (token, productId) => {
   }
 };
 
-// 🚀 Step 4: Run it all
+// Run it all
 const run = async () => {
   const token = await userLogin();
   const products = await fetchAllProducts();

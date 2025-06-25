@@ -1,7 +1,7 @@
 import Cart from '../models/Cart.js';
 import Product from '../models/Product.js';
 
-// ➕ Add item to cart or update quantity
+// Add item to cart or update quantity
 export const addToCart = async (req, res) => {
   const userId = req.user._id;
   const { productId, quantity } = req.body;
@@ -35,7 +35,7 @@ export const addToCart = async (req, res) => {
   }
 };
 
-// 🛒 Get current user's cart (filters deleted products)
+// Get current user's cart (filters deleted products)
 export const getCart = async (req, res) => {
   const userId = req.user._id;
 
@@ -61,7 +61,7 @@ export const getCart = async (req, res) => {
   }
 };
 
-// ✏️ Update quantity of a specific cart item
+// Update quantity of a specific cart item
 export const updateCartItem = async (req, res) => {
   const userId = req.user._id;
   const { productId, quantity } = req.body;
@@ -86,7 +86,7 @@ export const updateCartItem = async (req, res) => {
   }
 };
 
-// ❌ Remove item from cart by item _id
+// Remove item from cart by item _id
 export const removeFromCart = async (req, res) => {
   const userId = req.user._id;
   const itemId = req.params.itemId;
@@ -114,7 +114,7 @@ export const removeFromCart = async (req, res) => {
   }
 };
 
-// 🧹 Clear the entire cart
+// Clear the entire cart
 export const clearCart = async (req, res) => {
   const userId = req.user._id;
 

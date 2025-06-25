@@ -1,4 +1,3 @@
-// tests/order.test.js
 import mongoose from 'mongoose';
 import request from 'supertest';
 import app from '../server.js';
@@ -21,7 +20,7 @@ beforeAll(async () => {
   await Category.deleteMany({ name: new RegExp('TestCategory') });
   await Product.deleteMany({ name: new RegExp('Order Product') });
 
-  // ✅ Register and login user
+  // Register and login user
   await request(app).post('/api/users/register').send({
     name: 'Order User',
     email: uniqueEmail,
@@ -35,7 +34,7 @@ beforeAll(async () => {
 
   token = loginRes.body.token;
 
-  // ✅ Create category and product
+  // Create category and product
   const cat = await Category.create({ name: categoryName });
 
   const product = await Product.create({
@@ -50,9 +49,9 @@ beforeAll(async () => {
 
   productId = product._id.toString();
 
-  // ✅ Add product to cart using correct route
+  // Add product to cart using correct route
   await request(app)
-    .post('/api/cart') // ✅ Correct route from your cart router
+    .post('/api/cart') 
     .set('Authorization', `Bearer ${token}`)
     .send({ productId, quantity: 2 });
 });

@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import Otp from '../models/Otp.js';
 import User from '../models/User.js';
 
-jest.setTimeout(20000); // Prevent timeout
+jest.setTimeout(20000); 
 
 let otpCode = '';
 const email = 'resetme@example.com';

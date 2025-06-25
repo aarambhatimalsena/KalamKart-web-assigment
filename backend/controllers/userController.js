@@ -24,7 +24,7 @@ export const generateToken = (user) => {
   );
 };
 
-// ✅ Normal Register
+// Normal Register
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -52,7 +52,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// ✅ Login
+// Login
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -77,7 +77,7 @@ export const loginUser = async (req, res) => {
   });
 };
 
-// ✅ Google Auth (Same message if user already exists)
+// Google Auth (Same message if user already exists)
 export const googleAuthController = async (req, res) => {
   const { token } = req.body;
 
@@ -111,7 +111,7 @@ export const googleAuthController = async (req, res) => {
   }
 };
 
-// ✅ Get Profile
+// Get Profile
 export const getUserProfile = async (req, res) => {
   const user = await User.findById(req.user.id).select('-password');
   if (user) {
@@ -121,7 +121,7 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
-// ✅ Update Profile
+// Update Profile
 export const updateUserProfile = async (req, res) => {
   const user = await User.findById(req.user.id);
 
@@ -156,7 +156,7 @@ export const updateUserProfile = async (req, res) => {
   });
 };
 
-// ✅ Forgot Password
+// Forgot Password
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
@@ -175,7 +175,7 @@ export const forgotPassword = async (req, res) => {
   res.status(200).json({ message: 'Reset link sent to email' });
 };
 
-// ✅ Reset Password
+// Reset Password
 export const resetPassword = async (req, res) => {
   const { token } = req.params;
   const { password } = req.body;
@@ -196,7 +196,7 @@ export const resetPassword = async (req, res) => {
   res.status(200).json({ message: 'Password reset successful' });
 };
 
-// ✅ Upload Profile Image
+// Upload Profile Image
 export const uploadProfileImage = asyncHandler(async (req, res) => {
   if (!req.file) {
     res.status(400);

@@ -1,4 +1,3 @@
-// tests/category.test.js
 import mongoose from 'mongoose';
 import request from 'supertest';
 import fs from 'fs';
@@ -10,7 +9,7 @@ import Category from '../models/Category.js';
 const __dirname = path.resolve();
 let token;
 let createdCategoryId;
-const uniqueCategoryName = `TestCategory-${Date.now()}`; // ✅ Unique name
+const uniqueCategoryName = `TestCategory-${Date.now()}`; 
 
 describe('📂 Category API Tests', () => {
   beforeAll(async () => {
@@ -35,7 +34,7 @@ describe('📂 Category API Tests', () => {
   });
 
   afterAll(async () => {
-    await Category.deleteMany({ name: new RegExp('TestCategory') }); // ✅ Clean up dynamically created categories
+    await Category.deleteMany({ name: new RegExp('TestCategory') }); 
     await mongoose.disconnect();
   });
 

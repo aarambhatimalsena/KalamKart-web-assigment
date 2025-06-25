@@ -12,7 +12,7 @@ const uniqueCategoryName = `TestCategory-${Date.now()}`;
 beforeAll(async () => {
   await mongoose.connect(process.env.MONGO_URI_TEST);
   await User.deleteMany({ email: 'admin@example.com' });
-  await Category.deleteOne({ name: uniqueCategoryName }); // ✅ scoped delete
+  await Category.deleteOne({ name: uniqueCategoryName }); 
 
   // Create admin user
   await request(app).post('/api/users/register').send({
@@ -33,7 +33,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await Category.deleteOne({ name: uniqueCategoryName }); // ✅ scoped cleanup
+  await Category.deleteOne({ name: uniqueCategoryName }); 
   await mongoose.disconnect();
 });
 

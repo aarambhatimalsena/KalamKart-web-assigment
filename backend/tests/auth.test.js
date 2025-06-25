@@ -3,7 +3,7 @@ import request from 'supertest';
 import mongoose from 'mongoose';
 import app from '../server.js';
 
-jest.setTimeout(20000); // ✅ prevent timeout
+jest.setTimeout(20000); 
 
 const testUser = {
   name: 'Test User',
@@ -13,8 +13,8 @@ const testUser = {
 
 describe('🔐 Auth API', () => {
   beforeAll(async () => {
-    await mongoose.connect(process.env.MONGO_URI); // ✅ connect DB
-    await mongoose.connection.db.collection('users').deleteOne({ email: testUser.email }); // safe delete
+    await mongoose.connect(process.env.MONGO_URI); 
+    await mongoose.connection.db.collection('users').deleteOne({ email: testUser.email }); 
   });
 
   it('should register a user successfully (or detect duplicate)', async () => {
@@ -49,6 +49,6 @@ describe('🔐 Auth API', () => {
   });
 
   afterAll(async () => {
-    await mongoose.disconnect(); // ✅ clean close
+    await mongoose.disconnect(); 
   });
 });

@@ -1,7 +1,7 @@
 import Product from '../models/Product.js';
 import Category from '../models/Category.js'; // ✅ Required for ID to name mapping
 
-// ✅ Create a new product (admin only)
+// Create a new product (admin only)
 const createProduct = async (req, res) => {
   const { name, description, category, price, countInStock } = req.body;
   const image = req.body.image || req.file?.path || 'no-image.jpg';
@@ -29,7 +29,7 @@ const createProduct = async (req, res) => {
   }
 };
 
-// ✅ Get all products (with optional search/category filter)
+// Get all products (with optional search/category filter)
 const getAllProducts = async (req, res) => {
   try {
     const keyword = req.query.search
@@ -53,7 +53,7 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-// ✅ Fix: Get products by category (case-insensitive exact match)
+// Fix: Get products by category (case-insensitive exact match)
 const getProductsByCategory = async (req, res) => {
   try {
     const categoryName = decodeURIComponent(req.params.categoryName);
@@ -67,7 +67,7 @@ const getProductsByCategory = async (req, res) => {
   }
 };
 
-// ✅ Get single product by ID
+// Get single product by ID
 const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -78,7 +78,7 @@ const getProductById = async (req, res) => {
   }
 };
 
-// ✅ Update product
+// Update product
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const updates = { ...req.body };
@@ -102,7 +102,7 @@ const updateProduct = async (req, res) => {
   }
 };
 
-// ✅ Delete product
+// Delete product
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
 

@@ -8,7 +8,7 @@ import path from 'path';
 import fs from 'fs';
 import mongoose from 'mongoose';
 
-// ✅ PLACE ORDER
+// PLACE ORDER
 export const placeOrder = async (req, res) => {
   try {
     const userId = req.user._id || req.user.id;
@@ -122,7 +122,7 @@ export const placeOrder = async (req, res) => {
   }
 };
 
-// ✅ DOWNLOAD INVOICE
+// DOWNLOAD INVOICE
 export const downloadInvoice = async (req, res) => {
   try {
     const orderId = req.params.orderId;
@@ -159,7 +159,7 @@ export const downloadInvoice = async (req, res) => {
   }
 };
 
-// ✅ GET USER ORDERS
+// GET USER ORDERS
 export const getUserOrders = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user._id })
@@ -182,7 +182,7 @@ export const getUserOrders = async (req, res) => {
   }
 };
 
-// ✅ ADMIN: GET ALL ORDERS
+// ADMIN: GET ALL ORDERS
 export const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find()
@@ -201,7 +201,7 @@ export const getAllOrders = async (req, res) => {
   }
 };
 
-// ✅ ADMIN: UPDATE ORDER STATUS
+// ADMIN: UPDATE ORDER STATUS
 export const updateOrderStatus = async (req, res) => {
   try {
     const { orderId, status } = req.body;
@@ -223,7 +223,7 @@ export const updateOrderStatus = async (req, res) => {
   }
 };
 
-// ✅ ADMIN: MARK ORDER AS PAID
+// ADMIN: MARK ORDER AS PAID
 export const markOrderPaid = async (req, res) => {
   try {
     const { orderId } = req.body;

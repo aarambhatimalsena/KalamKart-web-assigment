@@ -1,5 +1,5 @@
 export default {
   testEnvironment: 'node',
-  transform: {}, // Still needed to avoid Babel config errors
+  transform: {}, 
   testMatch: ['**/tests/**/*.test.js'],
 };

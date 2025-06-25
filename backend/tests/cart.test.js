@@ -1,4 +1,3 @@
-// tests/cart.test.js
 import mongoose from 'mongoose';
 import request from 'supertest';
 import app from '../server.js';

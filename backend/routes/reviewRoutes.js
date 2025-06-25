@@ -10,11 +10,11 @@ import { protect, adminOnly } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 // User Review Endpoints
-router.post('/:productId', protect, addReview);                     // Add review
-router.get('/:productId', getProductReviews);                       // View reviews for a product
-router.delete('/:productId/:reviewId', protect, deleteReview);      // Delete review (self or admin)
+router.post('/:productId', protect, addReview);                     
+router.get('/:productId', getProductReviews);                      
+router.delete('/:productId/:reviewId', protect, deleteReview);     
 
 // Admin: Get all reviews across all products
-router.get('/', protect, adminOnly, getAllReviews);                // View all reviews (admin only)
+router.get('/', protect, adminOnly, getAllReviews);               
 
 export default router;

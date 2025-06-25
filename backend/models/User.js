@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema(
       default: '',
     },
 
-    // ✅ Required for forgot/reset password system
+    // Required for forgot/reset password system
     resetPasswordToken: {
       type: String,
     },

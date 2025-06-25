@@ -58,6 +58,26 @@ describe('🛡️ Admin Access Tests', () => {
     expect(res.body.message.toLowerCase()).toMatch(/admin|access denied/); // ✅ flexible match
   });
 
+  // NEW: Admin can access all reviews
+  test('✅ Admin can access /api/admin/reviews', async () => {
+    const res = await request(app)
+      .get('/api/admin/reviews')
+      .set('Authorization', `Bearer ${adminToken}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+
+  // NEW: Admin can access all orders
+  test('✅ Admin can access /api/admin/orders', async () => {
+    const res = await request(app)
+      .get('/api/admin/orders')
+      .set('Authorization', `Bearer ${adminToken}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+
   afterAll(async () => {
     await mongoose.disconnect();
   });

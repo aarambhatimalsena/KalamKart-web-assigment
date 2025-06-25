@@ -5,7 +5,7 @@ import User from '../models/User.js';
 import Coupon from '../models/Coupon.js';
 
 let adminToken = '';
-const dynamicCode = `TEST${Date.now()}`; // Unique coupon code
+const dynamicCode = `TEST${Date.now()}`; 
 
 beforeAll(async () => {
   await mongoose.connect(process.env.MONGO_URI_TEST || 'mongodb://127.0.0.1:27017/kalamkart_test');

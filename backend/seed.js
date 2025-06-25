@@ -6,13 +6,13 @@ import User from './models/User.js';
 
 
 dotenv.config();
-await connectDB(); // Connect to MongoDB
+await connectDB(); 
 
 const admin = {
   name: 'Aarambha Timalsena',
   email: 'timalsenaaarambha75@gmail.com',
   password: '123456',
-  role: 'admin', // ✅ this replaces isAdmin
+  role: 'admin', 
 };
 
 
@@ -348,10 +348,10 @@ const products = [
 ];
 
 try {
-  // 🧹 Clean up only existing products
+  // Clean up only existing products
   await Product.deleteMany();
 
-  // 👤 Check if admin already exists
+  // Check if admin already exists
   const existingAdmin = await User.findOne({ email: admin.email });
   if (!existingAdmin) {
     const createdAdmin = new User(admin);
@@ -361,7 +361,7 @@ try {
     console.log(`ℹ️ Admin already exists: ${existingAdmin.email}`);
   }
 
-  // 🛒 Insert Products
+  // Insert Products
   const createdProducts = await Product.insertMany(products);
   console.log(`✅ Seeded ${createdProducts.length} products!`);
 

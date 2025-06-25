@@ -13,12 +13,12 @@ import upload from '../middleware/upload.js';
 
 const router = express.Router();
 
-// ✅ Public routes
+// Public routes
 router.get('/', getAllProducts);
-router.get('/category/:categoryName', getProductsByCategory); // ✅ Fixed route
+router.get('/category/:categoryName', getProductsByCategory); 
 router.get('/:id', getProductById);
 
-// ✅ Admin-only routes
+// Admin-only routes
 router.post('/admin', protect, adminOnly, upload.single('image'), createProduct);
 router.put('/admin/:id', protect, adminOnly, upload.single('image'), updateProduct);
 router.delete('/admin/:id', protect, adminOnly, deleteProduct);

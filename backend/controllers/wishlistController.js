@@ -40,7 +40,7 @@ export const addToWishlist = async (req, res) => {
   }
 };
 
-// ✅ GET WISHLIST (updated to return [] instead of 404)
+// GET WISHLIST (updated to return [] instead of 404)
 export const getWishlist = async (req, res) => {
   try {
     const wishlist = await Wishlist.findOne({ user: req.user._id })

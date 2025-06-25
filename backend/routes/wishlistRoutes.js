@@ -8,8 +8,8 @@ import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.post('/', protect, addToWishlist); // Add multiple products
-router.get('/', protect, getWishlist);    // View all wishlist items
-router.delete('/:productId', protect, removeFromWishlist); // Remove specific item
+router.post('/', protect, addToWishlist); 
+router.get('/', protect, getWishlist);    
+router.delete('/:productId', protect, removeFromWishlist); 
 
 export default router;
