@@ -11,7 +11,6 @@ const AdminRoute = () => {
   useEffect(() => {
     if (!loading) {
       if (!user) {
-        toast.error("Please login first");
         setRedirectPath("/login");
       } else if (!(user?.isAdmin || user?.role === "admin")) {
         toast.error("Access denied! Admins only.");

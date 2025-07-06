@@ -13,7 +13,7 @@ const normalEmail = 'normaluser@example.com';
 
 describe('🛡️ Admin Access Tests', () => {
   beforeAll(async () => {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI_TEST);
     await User.deleteOne({ email: adminEmail });
     await User.deleteOne({ email: normalEmail });
 

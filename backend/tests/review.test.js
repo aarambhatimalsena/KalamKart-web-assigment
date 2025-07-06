@@ -14,10 +14,8 @@ beforeAll(async () => {
   await Category.deleteMany({ name: /TestCategory/ });
   await Product.deleteMany({ name: /Review Product/ });
 
-  // Create category
   const category = await Category.create({ name: `TestCategory-${Date.now()}` });
 
-  // Create product with category name, not ID (as per your code)
   const product = await Product.create({
     name: 'Review Product',
     description: 'For review tests',
@@ -28,29 +26,28 @@ beforeAll(async () => {
   productId = product._id.toString();
   console.log('Created productId:', productId);
 
-  // Register normal user
+  // 🕒 Small delay to ensure DB consistency
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  // Normal user registration & login
   await request(app).post('/api/users/register').send({
     name: 'Review Tester',
     email: `reviewtestuser@example.com`,
     password: 'test1234',
   });
-
-  // Login normal user
   const loginRes = await request(app).post('/api/users/login').send({
     email: 'reviewtestuser@example.com',
     password: 'test1234',
   });
   token = loginRes.body.token;
 
-  // Register admin user
+  // Admin registration & login
   await request(app).post('/api/users/register').send({
     name: 'Admin Reviewer',
     email: `reviewtestadmin@example.com`,
     password: 'admin123',
   });
   await User.findOneAndUpdate({ email: 'reviewtestadmin@example.com' }, { role: 'admin' });
-
-  // Login admin
   const adminLogin = await request(app).post('/api/users/login').send({
     email: 'reviewtestadmin@example.com',
     password: 'admin123',
@@ -71,6 +68,7 @@ describe('📝 Product Review API', () => {
       .post(`/api/reviews/${productId}`)
       .set('Authorization', `Bearer ${token}`)
       .send({ rating: 5, comment: 'Great product!' });
+
     console.log('Add review response status:', res.statusCode);
     expect(res.statusCode).toBe(201);
     expect(res.body.message).toMatch(/review added/i);

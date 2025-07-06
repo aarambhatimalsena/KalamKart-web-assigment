@@ -12,7 +12,7 @@ const email = 'resetme@example.com';
 
 describe("🔁 OTP Flow Using Otp Model", () => {
   beforeAll(async () => {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI_TEST);
     await User.deleteOne({ email });
     await Otp.deleteOne({ email });
   });

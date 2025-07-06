@@ -64,7 +64,7 @@ const ProductListPage = () => {
     e.stopPropagation();
 
     if (!user) {
-      toast("🚫 Please login to add items to your wishlist", {
+      toast("🚫 Please login to manage wishlist", {
         icon: "❌",
         style: {
           border: "1px solid #f87171",
@@ -76,19 +76,10 @@ const ProductListPage = () => {
       return;
     }
 
-    const isAlready = wishlistItems.includes(product._id);
     try {
-      if (isAlready) {
+      if (wishlistItems.includes(product._id)) {
         await removeFromWishlistBackend(product._id);
-        toast(" Removed from wishlist", {
-          icon: "❌",
-          style: {
-            border: "1px solid #f87171",
-            padding: "12px",
-            color: "#991b1b",
-            background: "#fee2e2",
-          },
-        });
+        toast("❌ Removed from wishlist");
       } else {
         await addToWishlistBackend([product._id]);
         toast.success("✅ Added to wishlist");
@@ -152,7 +143,9 @@ const ProductListPage = () => {
       <div className="bg-[#f5f1eb] py-4 px-6 text-sm text-gray-700">
         <div className="max-w-5xl mx-auto flex justify-center items-center gap-2">
           <FiHome className="inline-block w-4 h-4" />
-          <Link to="/" className="underline hover:text-gray-800">Home</Link>
+          <Link to="/" className="underline hover:text-gray-800">
+            Home
+          </Link>
           <span className="text-gray-400">/</span>
           <span className="font-semibold text-gray-900">Products</span>
         </div>
@@ -162,7 +155,9 @@ const ProductListPage = () => {
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-3xl font-semibold">Products</h2>
           <div className="flex items-center gap-4 text-sm">
-            <label htmlFor="sort" className="text-gray-600">Sort by:</label>
+            <label htmlFor="sort" className="text-gray-600">
+              Sort by:
+            </label>
             <select
               id="sort"
               value={sort}
@@ -182,47 +177,55 @@ const ProductListPage = () => {
           {paginatedProducts.map((product) => {
             const isWishlisted = wishlistItems.includes(product._id);
             return (
-              <div
+              <Link
                 key={product._id}
-                className="bg-white rounded-xl border border-gray-300 shadow hover:shadow-lg transition overflow-hidden group relative"
+                to={`/product/${product._id}`}
+                className="group bg-white border border-gray-300 rounded-xl overflow-hidden shadow hover:shadow-lg transition relative"
               >
-                <Link to={`/product/${product._id}`}>
-                  <div className="w-full h-[260px] bg-white">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-contain p-6 transition-transform duration-300 group-hover:scale-105"
-                    />
+                <div className="relative w-full h-[250px] bg-white">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-contain p-6 transition-transform duration-300 group-hover:scale-105"
+                  />
+
+                  {/* Icons appear only on hover */}
+                  <div className="absolute top-2 right-2 flex gap-2 bg-white/90 p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleWishlistClick(e, product);
+                      }}
+                      className="text-gray-600 hover:text-red-500"
+                      title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+                    >
+                      <FaHeart className={isWishlisted ? "text-red-500" : "text-gray-400"} />
+                    </button>
+
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleAddToCart(e, product);
+                      }}
+                      className="text-gray-600 hover:text-yellow-500"
+                      title="Add to cart"
+                    >
+                      <FaShoppingCart />
+                    </button>
                   </div>
-                </Link>
-
-                <div className="absolute inset-0 bg-white/80 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-4 transition">
-                  <button
-                    onClick={(e) => handleWishlistClick(e, product)}
-                    className="text-gray-600 hover:text-red-500"
-                    title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
-                  >
-                    {isWishlisted ? (
-                      <FaHeart className="text-red-500" size={18} />
-                    ) : (
-                      <FaHeart className="text-gray-400 hover:text-red-400" size={18} />
-                    )}
-                  </button>
-
-                  <button
-                    onClick={(e) => handleAddToCart(e, product)}
-                    className="text-gray-600 hover:text-yellow-600"
-                    title="Add to cart"
-                  >
-                    <FaShoppingCart size={18} />
-                  </button>
                 </div>
 
                 <div className="p-4">
-                  <h4 className="text-base font-semibold text-gray-900 mb-1 truncate">{product.name}</h4>
-                  <p className="text-sm text-gray-700 font-medium">Rs. {product.price}</p>
+                  <h4 className="text-base font-semibold text-gray-900 mb-1 truncate">
+                    {product.name}
+                  </h4>
+                  <p className="text-sm text-gray-700 font-medium">
+                    Rs. {product.price.toFixed(2)}
+                  </p>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

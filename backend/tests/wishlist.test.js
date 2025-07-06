@@ -57,7 +57,7 @@ describe('💖 Wishlist API Tests', () => {
     const res = await request(app)
       .post('/api/wishlist')
       .set('Authorization', `Bearer ${token}`)
-      .send({ productIds: [productId] }); // ✅ controller expects array
+      .send({ productIds: [productId] });
 
     console.log('📩 Add to wishlist response:', res.body);
     expect(res.statusCode).toBe(201);
@@ -86,5 +86,26 @@ describe('💖 Wishlist API Tests', () => {
 
     expect(res.statusCode).toBe(200);
     expect(res.body.message).toMatch(/removed/i);
+  });
+
+  // Return empty wishlist if no products added
+  test('📭 should return empty wishlist if none exists yet', async () => {
+    const res = await request(app)
+      .get('/api/wishlist')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+
+  // Prevent adding empty array of productIds
+  test('🚫 should fail to add empty productIds array to wishlist', async () => {
+    const res = await request(app)
+      .post('/api/wishlist')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ productIds: [] });
+
+    expect(res.statusCode).toBe(400);
+    expect(res.body.message).toMatch(/productIds.*array/i);
   });
 });

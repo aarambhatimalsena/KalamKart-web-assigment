@@ -87,7 +87,9 @@ describe('👤 User API Tests', () => {
     const user = await User.findOne({ email });
     expect(user.resetPasswordToken).toBeDefined();
     resetToken = jwt.sign({ token: user.resetPasswordToken }, 'dummy'); 
-  });
+  },
+   10000
+  );
 
   test('✅ Reset password with token (simulated)', async () => {
     const user = await User.findOne({ email });

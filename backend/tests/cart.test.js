@@ -12,7 +12,6 @@ let categoryId;
 
 beforeAll(async () => {
   await mongoose.connect(process.env.MONGO_URI_TEST);
-
   await Cart.deleteMany({});
   await Product.deleteMany({});
   await User.deleteMany({ email: /cartuser/ });
@@ -113,5 +112,26 @@ describe('🛒 Cart API Tests', () => {
 
     expect(res.statusCode).toBe(200);
     expect(res.body.message?.toLowerCase()).toMatch(/removed|deleted|success/);
+  });
+
+  // Add to cart without token
+  it('🚫 should not allow adding to cart without token', async () => {
+    const res = await request(app).post('/api/cart').send({
+      productId,
+      quantity: 1,
+    });
+
+    expect(res.statusCode).toBe(401);
+  });
+
+  //  Invalid product ID format
+  it('🚫 should handle invalid product ID format', async () => {
+    const res = await request(app)
+      .post('/api/cart')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ productId: 'not-a-valid-id', quantity: 1 });
+
+    expect([400, 500]).toContain(res.statusCode);
+    expect(res.body.message).toMatch(/failed|error|cast/i);
   });
 });
