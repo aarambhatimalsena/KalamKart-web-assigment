@@ -182,6 +182,33 @@ export const getUserOrders = async (req, res) => {
   }
 };
 
+// ✅ USER: GET ONE ORDER BY ID
+export const getOrderByIdForUser = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id)
+      .populate('user', 'name email')
+      .populate({
+        path: 'items',
+        populate: {
+          path: 'product',
+          model: 'Product'
+        }
+      });
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    if (order.user._id.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Not authorized to view this order' });
+    }
+
+    res.status(200).json(order);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+};
+
 // ADMIN: GET ALL ORDERS
 export const getAllOrders = async (req, res) => {
   try {
