@@ -2,7 +2,6 @@ import api from "../api/api";
 
 // USER: Order-related APIs
 
-
 // Place a new order (user)
 export const placeOrder = async (orderData) => {
   const res = await api.post("/orders/place", orderData); // ← add /place
@@ -15,6 +14,14 @@ export const getUserOrders = async () => {
   return res.data;
 };
 
+// ✅ Get a single order by ID (for the logged-in user)
+export const getOrderByIdUser = async (orderId) => {
+  const res = await api.get(`/orders/my-orders/${orderId}`, {
+    withCredentials: true, // Only needed if you're using sessions/cookies
+  });
+  return res.data;
+};
+
 // Download invoice for an order
 export const downloadInvoice = async (orderId) => {
   const res = await api.get(`/orders/invoice/${orderId}`, {
@@ -23,9 +30,7 @@ export const downloadInvoice = async (orderId) => {
   return res;
 };
 
-
 // ADMIN: Order Management APIs
-
 
 // Get all orders (admin)
 export const getAllOrders = async () => {
@@ -33,7 +38,7 @@ export const getAllOrders = async () => {
   return res.data;
 };
 
-// Get a single order by ID
+// Get a single order by ID (admin use only)
 export const getOrderById = async (orderId) => {
   const res = await api.get(`/orders/${orderId}`);
   return res.data;
