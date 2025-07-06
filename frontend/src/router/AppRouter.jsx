@@ -45,6 +45,8 @@ import CartPage from "../pages/user/CartPage";
 import CheckoutPage from "../pages/user/CheckoutPage";
 import CheckoutSuccessPage from "../pages/user/CheckoutSuccessPage";
 import OrdersPage from "../pages/user/OrdersPage";
+import UserOrderDetail from "../pages/user/UserOrderDetail";
+
 
 // Auth context
 import { useAuth } from "../auth/AuthProvider";
@@ -127,6 +129,7 @@ const AppRouter = () => {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
           <Route path="/orders" element={<OrdersPage />} />
+          <Route path="/orders/:orderId" element={<UserOrderDetail />} />
         </Route>
       </Route>
     </Routes>
