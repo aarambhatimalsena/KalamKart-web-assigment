@@ -3,6 +3,8 @@ import fs from 'fs';
 
 // Order Confirmation or Invoice Email
 export const sendOrderEmail = async (to, subject, text, invoicePath = null) => {
+  if (process.env.NODE_ENV === 'test') return; // ✅ skip in test mode
+
   try {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -29,6 +31,8 @@ export const sendOrderEmail = async (to, subject, text, invoicePath = null) => {
 
 // OTP Email with Debug Logs
 export const sendOtpEmail = async (to, otp) => {
+  if (process.env.NODE_ENV === 'test') return; // ✅ skip in test mode
+
   try {
     console.log("📩 Preparing to send OTP to:", to);
     console.log("📧 EMAIL_USER:", process.env.EMAIL_USER);
@@ -66,6 +70,8 @@ export const sendOtpEmail = async (to, otp) => {
 
 // Forgot Password Email
 export const sendForgotPasswordEmail = async (to, resetLink) => {
+  if (process.env.NODE_ENV === 'test') return; // ✅ skip in test mode
+
   try {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
