@@ -1,0 +1,51 @@
+services:
+
+  mongo:
+    image: mongo:7
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - mern-net
+    environment:
+      - MONGO_INITDB_DATABASE:${MONGO_DB}
+      - MONGO_INITDB_ROOT_USERNAME:${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD:${MONGO_PASS}
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5050:5050"
+    depends_on:
+      - mongo
+    networks:
+      - mern-net
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - mern-net
+
+volumes:
+  mongodb-data:
+
+networks:
+  mern-net:
+    driver: bridge
+
+   #docker compose up
+   #docker compose up -build
+   #docker compose down
+   #docker compose -d up --build
+
+
+
+  
